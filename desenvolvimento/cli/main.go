@@ -10,20 +10,21 @@ import(
 
 func main() {
 	Flags()
-	ips, err := ResolveTargets([]string{"8.8.8.8", "google.com"})
+	ips, err := ResolveTargets([]string{"8.8", "google.com", "google", "8.8.4.4"})
 	if err != nil {
 		fmt.Println(err)
-	}else{
-		for chave, valor := range ips{
-			fmt.Println(chave + ":", valor)
-		}
 	}
+	for chave, valor := range ips{
+		fmt.Println(chave + ":", valor)
+	}
+	
 }
 
 func ResolveTargets(hosts []string) (map[string][]net.IP, error){
+
 	//Slice que vai guardar os ips resultantes
 	ips := map[string][]net.IP{}
-
+	failedTargets := []string{}
 	for _,target := range hosts {
 		//Se o alvo for um ip direto
 		ip := net.ParseIP(target)
@@ -39,10 +40,16 @@ func ResolveTargets(hosts []string) (map[string][]net.IP, error){
 			ips[target] = domainIPs
 		}
 
+		//Se ambos falharem, o alvo não foi resolvido
 		if ip == nil && err != nil{
-			return nil, errors.New("Não possível resolver \"" + target+ "\"")
+			failedTargets = append(failedTargets, target)
 		}
 	}
+
+	if len(failedTargets)!=0{
+		return ips, errors.New("Não possível resolver os seguintes targets: " + fmt.Sprint(failedTargets))
+	}
+	
 	return ips, nil
 }
 
