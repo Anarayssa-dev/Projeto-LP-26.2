@@ -9,32 +9,34 @@ import(
 )
 
 func main() {
-	//Flags()
+	Flags()
 	ips, err := ResolveTargets([]string{"8.8.8.8", "google.com"})
 	if err != nil {
 		fmt.Println(err)
 	}else{
-		fmt.Println(ips)
+		for chave, valor := range ips{
+			fmt.Println(chave + ":", valor)
+		}
 	}
 }
 
-func ResolveTargets(hosts []string) ([]net.IP, error){
+func ResolveTargets(hosts []string) (map[string][]net.IP, error){
 	//Slice que vai guardar os ips resultantes
-	ips := []net.IP{}
+	ips := map[string][]net.IP{}
 
 	for _,target := range hosts {
 		//Se o alvo for um ip direto
 		ip := net.ParseIP(target)
 
 		if ip != nil{
-			ips = append(ips,ip)
+			ips[target] = []net.IP{ip}
 		}
 
 		//Se o alvo for um domínio
 		domainIPs, err := net.LookupIP(target)//net.LookupIP retorna um slice com os ips do domínio
 
 		if err == nil{
-			ips = append(ips, domainIPs...)
+			ips[target] = domainIPs
 		}
 
 		if ip == nil && err != nil{
