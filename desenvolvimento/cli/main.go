@@ -10,7 +10,16 @@ import(
 
 func main() {
 	Flags()
-	ips, err := ResolveTargets([]string{"8.8", "google.com", "google", "8.8.4.4"})
+	
+	//Para utilizar flag.Args() é necessário chamar flag.Parse() presente em Flags()
+	//flag.Parse()
+	hosts := flag.Args()
+	ips, err := ResolveTargets(hosts)
+
+	//Testando sem usar os parâmetros do terminal
+	//ips, err := ResolveTargets([]string{"8.8", "google.com", "google", "8.8.4.4"})
+	
+	//Printando resultado
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -47,7 +56,7 @@ func ResolveTargets(hosts []string) (map[string][]net.IP, error){
 	}
 
 	if len(failedTargets)!=0{
-		return ips, errors.New("Não possível resolver os seguintes targets: " + fmt.Sprint(failedTargets))
+		return ips, errors.New("Argumento(s) inválido(s): " + fmt.Sprint(failedTargets))
 	}
 	
 	return ips, nil
