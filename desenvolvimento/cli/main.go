@@ -4,13 +4,47 @@ import(
 	"fmt"
 	"flag"
 	"os"
+	"net"
+	"errors"
 )
 
 func main() {
-	flags()
+	//Flags()
+	ips, err := ResolveTargets([]string{"8.8.8.8", "google.com"})
+	if err != nil {
+		fmt.Println(err)
+	}else{
+		fmt.Println(ips)
+	}
 }
 
-func flags() {
+func ResolveTargets(hosts []string) ([]net.IP, error){
+	//Slice que vai guardar os ips resultantes
+	ips := []net.IP{}
+
+	for _,target := range hosts {
+		//Se o alvo for um ip direto
+		ip := net.ParseIP(target)
+
+		if ip != nil{
+			ips = append(ips,ip)
+		}
+
+		//Se o alvo for um domínio
+		domainIPs, err := net.LookupIP(target)//net.LookupIP retorna um slice com os ips do domínio
+
+		if err == nil{
+			ips = append(ips, domainIPs...)
+		}
+
+		if ip == nil && err != nil{
+			return nil, errors.New("Não possível resolver \"" + target+ "\"")
+		}
+	}
+	return ips, nil
+}
+
+func Flags() {
 	/**
 	• -t: Envia pacotes de eco continuamente para o destino até ser interrompido com as teclas Ctrl + C.
 	• -a: Resolve endereços IP para nomes de host.
