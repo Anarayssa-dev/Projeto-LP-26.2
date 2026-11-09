@@ -6,11 +6,24 @@ import(
 )
 
 func main() {
-	Flags()
+	programFlags := GetFlags()
 	
 	//Para utilizar flag.Args() é necessário chamar flag.Parse() presente em Flags()
-	//flag.Parse()
-	hosts := flag.Args()
+
+	var hosts []string
+
+	if programFlags.f == ""{
+		//flag.Parse()
+		hosts = flag.Args() //Retorna o que não for flag ou argumento
+	}else{
+		var err error
+		
+		hosts, err = FileToSlice(programFlags.f)
+
+		if err != nil{
+			fmt.Println(err)
+		}
+	}
 	ips, err := ResolveTargets(hosts)
 
 	//Testando sem usar os parâmetros do terminal

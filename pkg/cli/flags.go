@@ -6,7 +6,15 @@ import(
 	//"os"
 )
 
-func Flags() {
+type Flags struct {
+    c       int
+    t       int
+    i    	int
+    f 		string
+}
+
+func GetFlags()(Flags) {
+
 	/**
 	-c [int]: Quantidade de pacotes por envio
 	-i [int]: Intervalo entre envio de pacotes
@@ -44,6 +52,13 @@ func Flags() {
 
 	if *help {
 		fmt.Println("flag /? alterada")
+	}
+
+	return Flags{
+		c:*times,
+		i:*rest,
+		t:*timeout,
+		f:*fromFile,
 	}
 }
 
