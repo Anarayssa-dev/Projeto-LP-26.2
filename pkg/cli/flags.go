@@ -3,11 +3,54 @@ package main
 import(
 	"fmt"
 	"flag"
-	"os"
+	//"os"
 )
 
 func Flags() {
 	/**
+	-c [int]: Quantidade de pacotes por envio
+	-i [int]: Intervalo entre envio de pacotes
+	-t [int]: Define um timeout por pacote em milissegundos
+	-f [string]: Lê uma lista de domínios ou IP's de um arquivo .txt
+	/?: Exibem a ajuda e a lista completa de comandos e sintaxes no Prompt de Comando.
+	**/
+	
+	//Declarando flags
+	times := flag.Int("c", 4, "Define quantos pacotes serão enviados")
+	rest := flag.Int("i", 1000, "Define o intervalo entre envio de pacotes em milissegundos")
+	timeout := flag.Int("t", 4000, "Define o tempo limite de espera por cada resposta em milissegundos")
+	fromFile := flag.String("f", "", "Lê uma lista de domínios ou IP's de um arquivo .txt")
+	help := flag.Bool("/?", false, "Exibe a lista de comandos")
+
+	flag.Parse()//Interpreta argumentos recebidos
+
+	//Testando flags
+
+	if *times != 4 {
+		fmt.Println("flag -c alterada")
+	}
+
+	if *rest != 1000 {
+		fmt.Println("flag -i alterada")
+	}
+
+	if *timeout != 4000 {
+		fmt.Println("flag -t alterada")
+	}
+
+	if *fromFile != "" {
+		fmt.Println("flag -f alterada")
+	}
+
+	if *help {
+		fmt.Println("flag /? alterada")
+	}
+}
+
+
+/**
+func Flags() {
+	
 	• -t: Envia pacotes de eco continuamente para o destino até ser interrompido com as teclas Ctrl + C.
 	• -a: Resolve endereços IP para nomes de host.
 	• -n [número]: Define a quantidade de pacotes de solicitação de eco a serem enviados (o padrão no Windows é 4).
@@ -18,7 +61,7 @@ func Flags() {
 	• -4: Força o uso exclusivo do protocolo IPv4.
 	• -6: Força o uso exclusivo do protocolo IPv6.
 	• /?: Exibem a ajuda e a lista completa de comandos e sintaxes no Prompt de Comando.
-	**/
+	
 	
 	//Declarando flags
 	continuos := flag.Bool("t", false, "Envia pacotes continuamente para o destino até ser interrompido com Ctrl + C")
@@ -84,3 +127,4 @@ func Flags() {
 		fmt.Println("flag /? ativada")
 	}
 }
+**/
