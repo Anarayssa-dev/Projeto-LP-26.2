@@ -5,7 +5,7 @@ Projeto desenvolvido na disciplina Linguagens de Programação em 2026.2, essa d
 
 ### :octocat: Projeto do grupo
 
-Analisador estático de código focado em qualidade e segurança para pipelines de CI/CD. O sistema lê scripts ou código-fonte e navega por sua Árvore Sintática Abstrata (AST) sem executá-lo, identificando falhas de segurança, escopos incorretos e códigos mal estruturados. Aplicar métodos formais de tradução, checagem de tabelas de símbolos/escopo e medição automatizada dos critérios de qualidade de uma linguagem (Readability e Writability).
+[...]
 
 ### :octocat: Integrantes
 
