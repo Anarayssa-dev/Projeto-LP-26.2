@@ -1,40 +1,38 @@
 package main
 
-import(
+import (
+	"errors"
 	"fmt"
 	"net"
-	"errors"
 )
 
-func ResolveTargets(hosts []string) (map[string][]net.IP, error){
+// lookupIP permite testar a resolução de nomes sem depender de um servidor DNS.
+var lookupIP = net.LookupIP
 
-	//Slice que vai guardar os ips resultantes
-	ips := map[string][]net.IP{}
-	failedTargets := []string{}
-	for _,target := range hosts {
-		//Se o alvo for um ip direto
-		ip := net.ParseIP(target)
+func ResolveTargets(hosts []string) (map[string][]net.IP, error) {
+	ips := make(map[string][]net.IP)
+	var failedTargets []string
 
-		if ip != nil{
+	for _, target := range hosts {
+		// Se o alvo já for um IP, não é necessário consultar o DNS.
+		if ip := net.ParseIP(target); ip != nil {
 			ips[target] = []net.IP{ip}
+			continue
 		}
 
-		//Se o alvo for um domínio
-		domainIPs, err := net.LookupIP(target)//net.LookupIP retorna um slice com os ips do domínio
-
-		if err == nil{
+		// Se o alvo for um domínio, tenta resolver seu endereço.
+		domainIPs, err := lookupIP(target)
+		if err == nil && len(domainIPs) > 0 {
 			ips[target] = domainIPs
+			continue
 		}
 
-		//Se ambos falharem, o alvo não foi resolvido
-		if ip == nil && err != nil{
-			failedTargets = append(failedTargets, target)
-		}
+		failedTargets = append(failedTargets, target)
 	}
 
-	if len(failedTargets)!=0{
+	if len(failedTargets) > 0 {
 		return ips, errors.New("Argumento(s) inválido(s): " + fmt.Sprint(failedTargets))
 	}
-	
+
 	return ips, nil
 }
