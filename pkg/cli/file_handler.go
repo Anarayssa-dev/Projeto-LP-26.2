@@ -10,7 +10,7 @@ func FileToSlice(fileName string) ([]string, error){
 	//Arquivo deve estar na raiz do projeto
 
 	//Lendo o arquivo
-	file, err := os.Open("../../"+fileName)
+	file, err := os.Open(fileName)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err

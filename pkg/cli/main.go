@@ -8,7 +8,11 @@ import(
 
 func main() {
 	programFlags := GetFlags()
-	
+
+	if err := validateFlags(programFlags); err != nil {
+        fmt.Println("Erro:", err)
+        return
+    }
 	//Para utilizar flag.Args() é necessário chamar flag.Parse() presente em Flags()
 
 	hosts := FFlag(programFlags)
