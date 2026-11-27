@@ -1,16 +1,21 @@
-# 🏛️: Projeto desenvolvido na disciplina Linguagens de Programação em 2026.2 
-Essa disciplina visa estudar conceitos de linguagens de programação e implicações deles na construção de softwares. O entendimento desses conceitos facilita ao programador desenvolver softwares mais eficientes e com menos erros. A turma selecionou a linguagem GoLang como a principal LP que deve ser utilizada, cada grupo escolhe o tema do projeto que deseja desenvolver com a LP!
+# 🖥️: Projeto Multiping  
+Projeto desenvolvido na disciplina Linguagens de Programação em 2026.2, essa disciplina visa estudar conceitos de linguagens de programação e implicações deles na construção de softwares. O entendimento desses conceitos facilita ao programador desenvolver softwares mais eficientes e com menos erros. A turma selecionou a linguagem GoLang como a principal LP que deve ser utilizada, cada grupo escolhe o tema do projeto que deseja desenvolver com a LP!
 
 ## 🤓 Visão Geral 
 
 ### :octocat: Projeto do grupo
 
-Analisador estático de código focado em qualidade e segurança para pipelines de CI/CD. O sistema lê scripts ou código-fonte e navega por sua Árvore Sintática Abstrata (AST) sem executá-lo, identificando falhas de segurança, escopos incorretos e códigos mal estruturados. Aplicar métodos formais de tradução, checagem de tabelas de símbolos/escopo e medição automatizada dos critérios de qualidade de uma linguagem (Readability e Writability).
+[...]
 
 ### :octocat: Integrantes
 
 Nome | matricula | Github: @ 
 ---|---|---
+Analyce Rayssa Silva Nunes | 211026548 | @dd
+João Paulo Silva Mendes | 242026187 | @dd
+Pedro Augusto Martins dos Santos | 242024692 | @dd
+Pedro Lucas Alves Cesário | 252013093 | @dd
+
 
 ### Entregaveis
 

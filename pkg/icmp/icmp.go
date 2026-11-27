@@ -84,8 +84,28 @@ func Marshal(msg Message) ([]byte, error) {
 	return buf, nil
 }
 
-// TODO: Transformar uma fatia de bytes em Message
-
+// ParseMessage transforma os bytes de um pacote ICMP Echo em Message.
+// São aceitos somente Echo Request e Echo Reply, que possuem cabeçalho de 8 bytes.
 func ParseMessage(b []byte) (*Message, error) {
-	return nil, nil
+	if len(b) < 8 {
+		return nil, ErrBufferTooShort
+	}
+
+	msgType := b[0]
+	if msgType != TypeEchoRequest && msgType != TypeEchoReply {
+		return nil, ErrInvalidType
+	}
+
+	msg := &Message{
+		Header: ICMPHeader{
+			Type:     msgType,
+			Code:     b[1],
+			Checksum: binary.BigEndian.Uint16(b[2:4]),
+			ID:       binary.BigEndian.Uint16(b[4:6]),
+			Sequence: binary.BigEndian.Uint16(b[6:8]),
+		},
+		Data: append([]byte(nil), b[8:]...),
+	}
+
+	return msg, nil
 }
