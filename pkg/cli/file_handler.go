@@ -1,9 +1,8 @@
 package main
 
 import(
-	"os"
-	"fmt"
 	"bufio"
+	"os"
 )
 
 func FileToSlice(fileName string) ([]string, error){
@@ -12,7 +11,6 @@ func FileToSlice(fileName string) ([]string, error){
 	//Lendo o arquivo
 	file, err := os.Open(fileName)
 	if err != nil {
-		fmt.Println(err)
 		return nil, err
 	}
 	defer file.Close()
@@ -29,7 +27,6 @@ func FileToSlice(fileName string) ([]string, error){
 	
 	err = scanner.Err()
 	if err != nil {
-		fmt.Println("Erro durante a leitura:", err)
 		return nil, err
 	}
 

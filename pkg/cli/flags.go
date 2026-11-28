@@ -30,31 +30,8 @@ func GetFlags()(Flags) {
 	rest := flag.Int("i", 1000, "Define o intervalo entre envio de pacotes em milissegundos")
 	timeout := flag.Int("t", 4000, "Define o tempo limite de espera por cada resposta em milissegundos")
 	fromFile := flag.String("f", "", "Lê uma lista de domínios ou IP's de um arquivo .txt")
-	help := flag.Bool("/?", false, "Exibe a lista de comandos")
 
 	flag.Parse()//Interpreta argumentos recebidos
-
-	//Testando flags
-
-	if *times != 4 {
-		fmt.Println("flag -c alterada")
-	}
-
-	if *rest != 1000 {
-		fmt.Println("flag -i alterada")
-	}
-
-	if *timeout != 4000 {
-		fmt.Println("flag -t alterada")
-	}
-
-	if *fromFile != "" {
-		fmt.Println("flag -f alterada")
-	}
-
-	if *help {
-		fmt.Println("flag /? alterada")
-	}
 
 	return Flags{
 		c:*times,
